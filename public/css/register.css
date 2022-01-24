@@ -1,93 +1,93 @@
 *{
-    margin: 0px;
-    padding: 0px;
-    box-sizing:border-box;
-    font-family: 'Heebo', sans-serif;
-    /* font-family: sans-serif; */
-    outline: none;
+  margin: 0px;
+  padding: 0px;
+  box-sizing:border-box;
+  font-family: 'Heebo', sans-serif;
+  /* font-family: sans-serif; */
+  outline: none;
 }
 
 body{
-    background-image: linear-gradient(200deg,#ffef12, rgb(230, 0, 69) 30%, #002fff);
+  background-image: linear-gradient(200deg,#ffef12, rgb(230, 0, 69) 30%, #002fff);
 }
 
 h1{
-    color: white;
-    font-weight: bold ;
+  color: white;
+  font-weight: bold ;
 }
 
 .main{
-    height: 100vh;
-    text-align: center;
-    padding: 27px;
-    padding-top: 20vh;
+  height: 100vh;
+  text-align: center;
+  padding: 27px;
+  padding-top: 20vh;
 }
 
 .input-buttons{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .register-cred{
-    margin: 5vh 0px;
-    display:block;
-    height: 30px;
-    width: 100%;
-    border: black 1px;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 0.8rem;
-    font-weight: bold;
+  margin: 5vh 0px;
+  display:block;
+  height: 30px;
+  width: 100%;
+  border: black 1px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
 }
 
 .register-cred:hover{
-    transition: ease 0.1s;
-    border: rgb(0, 0, 0) 2px solid;
+  transition: ease 0.1s;
+  border: rgb(0, 0, 0) 2px solid;
 }
 
 .register-cred:focus{
-    border: rgb(24, 202, 0) 3px solid;
+  border: rgb(24, 202, 0) 3px solid;
 }
 
 
 .lgn{
-    margin: 5vh auto;
-    max-width: 400px;
+  margin: 5vh auto;
+  max-width: 400px;
 }
 
 .btn {
-    font-family: sans-serif;
-    background-color: white;
-    border: 1px rgb(255, 255, 255) solid;
-    border-radius: 4px;
-    height: 30px;
-    width: 100%;
-    font-weight:900;
+  font-family: sans-serif;
+  background-color: white;
+  border: 1px rgb(255, 255, 255) solid;
+  border-radius: 4px;
+  height: 30px;
+  width: 100%;
+  font-weight:900;
 }
 
 .btn:hover {
-    transition: ease 0.2s;
-    background-color: black;
-    color: white;
+  transition: ease 0.2s;
+  background-color: black;
+  color: white;
 }
 
 .btn:active {
-    border: 3px rgb(24, 233, 24) solid;
-    transition: ease 0.2s;
+  border: 3px rgb(24, 233, 24) solid;
+  transition: ease 0.2s;
 }
 
 .btn:focus {
-    border: 3px rgb(255, 0, 157) solid;
-    color: rgb(255, 0, 157);
+  border: 3px rgb(255, 0, 157) solid;
+  color: rgb(255, 0, 157);
 }
 
 a{
-    text-decoration: underline;
-    color: yellow;
+  text-decoration: underline;
+  color: yellow;
 }
 
 a:focus{
-    text-decoration: underline;
-    color: rgb(255, 0, 170);
+  text-decoration: underline;
+  color: rgb(255, 0, 170);
 }

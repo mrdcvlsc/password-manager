@@ -16,6 +16,10 @@ app.get('/register', (req,res) => {
 	res.sendFile(path.join(`${__dirname}/public/html/register.html`));
 });
 
+app.get('/dev-password-view', (req,res) =>{
+  res.sendFile(path.join(`${__dirname}/public/html/password-view.html`));
+})
+
 app.listen(PORT, () => {
     console.log(`Server listening on port : ${PORT}`);
 })

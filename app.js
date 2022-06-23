@@ -1,25 +1,37 @@
+const fastify = require('fastify')({logger:true});
+const fastifyStatic = require('@fastify/static');
+const path = require('path');
+const os = require('os');
+const networkInterfaces = os.networkInterfaces();
+
 const PORT = process.env.PORT || 8080;
 
-const path 		 = require('path');
-const fs 		 = require('fs');
-
-const express 	 = require('express');
-const app = express();
-
-app.use(express.static('public'));
-
-app.get('/', (req,res) => {
-	res.sendFile(path.join(`${__dirname}/public/html/login.html`));
+// serve static front-end resources
+fastify.register(fastifyStatic.default, {
+  root: path.join(__dirname, 'public')
 });
 
-app.get('/register', (req,res) => {
-	res.sendFile(path.join(`${__dirname}/public/html/register.html`));
-});
+// routes
+fastify.register(require('./routes'));
 
-app.get('/dev-password-view', (req,res) =>{
-  res.sendFile(path.join(`${__dirname}/public/html/password-view.html`));
-})
+// start listening to port
+const start = async () => {
+  try {
+    await fastify.listen(PORT, '::');
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+}
+start();
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port : ${PORT}`);
-})
+// display device's network IP
+if(typeof(networkInterfaces.wlp2s0) !== 'undefined') {
+  console.log(`\n(a): app-server-ip: ${networkInterfaces.wlp2s0[0].address}:${PORT}\\\n\n`);
+} else if(typeof(networkInterfaces['Wi-Fi'])!=='undefined') {
+  console.log(`\n(b): app-server-ip: ${networkInterfaces['Wi-Fi'][1].address}:${PORT}\\\n\n`);
+} else if(typeof(networkInterfaces.Ethernet) !== 'undefined') {
+  console.log(`\n(c): app-server-ip: ${networkInterfaces.Ethernet[1].address}:${PORT}\\\n\n`);
+} else {
+  console.log('\nno IP found for sharing over the network\n\n');
+}

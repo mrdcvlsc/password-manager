@@ -1,27 +1,24 @@
 {
   "name": "password-manager",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple web-app for storing passwords",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mrdcvlsc/password-manager.git"
   },
-  "author": "",
+  "author": "mrdcvlsc",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mrdcvlsc/password-manager/issues"
   },
   "homepage": "https://github.com/mrdcvlsc/password-manager#readme",
   "dependencies": {
+    "@fastify/static": "^6.4.0",
     "better-sqlite3": "^7.5.3",
-    "fastify": "^4.0.3",
-    "fastify-static": "^4.7.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.16"
+    "fastify": "^4.1.0"
   }
 }

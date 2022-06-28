@@ -13,17 +13,17 @@
 <body>
     <div class="main">
         <h1>Login</h1>
-        <form action="#" method="post">
+        <form action="login" method="POST">
             <div class="lgn input-field">
-                <input class="login-cred" type="text" placeholder="Username" required>
-                <input class="login-cred" type="password" placeholder="Password" required>
+                <input class="login-cred" type="text" placeholder="Username" name="uid" required>
+                <input class="login-cred" type="password" placeholder="Password" name="psw" required>
             </div>
             <div class="lgn input-buttons">
                 <input class="btn login" type="submit" value="Login">
                 <input class="btn sign-up" type="button" value="Sign-up" onclick="location.href='/register'">
             </div>
         </form>
-        <a href="#">Sign-in with</a>
+        <a href="/sign-in-with">Sign-in with</a>
     </div>
 </body>
 </html>

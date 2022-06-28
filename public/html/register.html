@@ -13,16 +13,17 @@
 <body>
     <div class="main">
         <h1>Register</h1>
-        <form action="#" method="post">
+        <form action="register" method="post">
             <div class="lgn input-field">
-                <input class="register-cred" type="text" placeholder="Username" required>
-                <input class="register-cred" type="password" placeholder="Password" required>
-                <input class="register-cred" type="password" placeholder="Re-type Password" required>
+                <input class="register-cred" type="text" placeholder="Username" name="uid" required>
+                <input class="register-cred" type="password" placeholder="Password" name="psw1" required>
+                <input class="register-cred" type="password" placeholder="Re-type Password" name="psw2" required>
             </div>
             <div class="lgn input-buttons">
                 <input class="btn register" type="submit" value="Confirm">
             </div>
         </form>
+        <a href="/login">Go back to Login</a>
     </div>
 </body>
 </html>

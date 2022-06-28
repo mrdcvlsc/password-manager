@@ -11,8 +11,12 @@ fastify.register(fastifyStatic.default, {
   root: path.join(__dirname, 'public')
 });
 
+// accept form body submission
+fastify.register(require('@fastify/formbody'));
+
 // routes
 fastify.register(require('./routes'));
+fastify.register(require('./actions'));
 
 // start listening to port
 const start = async () => {

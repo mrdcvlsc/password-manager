@@ -16,6 +16,7 @@ fastify.register(require('@fastify/formbody'));
 
 // initialize database and it's tables
 const { db } = require('./database');
+const PreparedStatements = new (require('./statements'))(db);
 
 // routes
 fastify.register(require('./routes'));
@@ -35,7 +36,7 @@ start();
 // display device's network IP
 if(typeof(networkInterfaces.wlp2s0) !== 'undefined') {
   console.log(`\n(a) | app-server-ip: ${networkInterfaces.wlp2s0[0].address}:${PORT}\\\n\n`);
-} else if(typeof(networkInterfaces.enp3s0f1 !== 'undefined')) {
+} else if(typeof(networkInterfaces.enp3s0f1) !== 'undefined') {
   console.log(`\n(b) | app-server-ip: ${networkInterfaces.enp3s0f1[0].address}:${PORT}\\\n\n`);
 } else if(typeof(networkInterfaces['Wi-Fi'])!=='undefined') {
   console.log(`\n(c) | app-server-ip: ${networkInterfaces['Wi-Fi'][1].address}:${PORT}\\\n\n`);

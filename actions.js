@@ -9,6 +9,8 @@ async function actions (fastify)
     console.log('\n\nPost request - register\n\n');
     res.send(req.body);
   });
+
+  
 }
 
 module.exports = actions;

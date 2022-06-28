@@ -14,6 +14,9 @@ fastify.register(fastifyStatic.default, {
 // accept form body submission
 fastify.register(require('@fastify/formbody'));
 
+// initialize database and it's tables
+const { db } = require('./database');
+
 // routes
 fastify.register(require('./routes'));
 fastify.register(require('./actions'));

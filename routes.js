@@ -13,7 +13,7 @@ async function routes (fastify)
   });
 
   fastify.setNotFoundHandler((req, res) => {
-    res.code(404).send('404 - Not Found');
+    res.code(404).sendFile('html/not-found.html');
   });
 }
 

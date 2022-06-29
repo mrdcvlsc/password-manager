@@ -4,7 +4,8 @@ try {
   db.exec(`
     create table users (
       uid TEXT PRIMARY KEY NOT NULL,
-      sign TEXT NOT NULL
+      salt TEXT NOT NULL,
+      hash TEXT NOT NULL
     )`
   );
   console.log('"user" table created');
@@ -15,7 +16,6 @@ try {
 try {
   db.exec(`
     create table records (
-      ukey TEXT PRIMARY KEY NOT NULL,
       uid TEXT NOT NULL,
       username TEXT NOT NULL,
       platform TEXT NOT NULL,

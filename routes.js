@@ -11,6 +11,10 @@ async function routes (fastify)
   fastify.get('/view', (req,res) => {
     res.sendFile('html/password-view.html');
   });
+
+  fastify.setNotFoundHandler((req, res) => {
+    res.sendFile('html/not-found.html');
+})
 }
 
 module.exports = routes;

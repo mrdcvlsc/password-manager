@@ -58,6 +58,16 @@ async function actions (fastify)
 {
   fastify.post('/login', Option.LoginUser);
   fastify.post('/register', Option.AddUser);
+  fastify.post('/logout', async (req,res) => {
+    try {
+      await req.session.destroy();
+      return true;
+    } catch(err) {
+      console.error('Logout failed:\n');
+      console.error(err);
+      return false;
+    }
+  });
 }
 
 module.exports = actions;

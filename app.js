@@ -1,21 +1,44 @@
+const crypto = require('crypto');
 const fastify = require('fastify')({logger:true});
 const fastifyStatic = require('@fastify/static');
+const fastifyCookie = require('@fastify/cookie');
+const fastifySession = require('@fastify/session');
 const path = require('path');
 const os = require('os');
 const networkInterfaces = os.networkInterfaces();
 
 const PORT = process.env.PORT || 8080;
 
+/// Secure Random String Generator
+function srstrg(length) {
+  let buffer = crypto.randomBytes(length);
+  return buffer.toString('hex');
+}
+
 // serve static front-end resources
 fastify.register(fastifyStatic.default, {
   root: path.join(__dirname, 'public')
 });
 
+// register cookies and sessions plugin
+fastify.register(fastifyCookie);
+fastify.register(fastifySession,{
+  secret: srstrg(16),
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    maxAge: 3600000 // 1 hour session lifetime
+  },
+  saveUninitialized: false
+});
+
 // accept form body submission
 fastify.register(require('@fastify/formbody'));
 
-// routes
+// frontent resources routes
 fastify.register(require('./routes'));
+
+// frontent requests routes
 fastify.register(require('./actions'));
 
 // start listening to port

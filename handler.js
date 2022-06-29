@@ -7,15 +7,10 @@ const { db } = require('./database');
 // initialize database statements
 const PrepStatement = new (require('./statements'))(db);
 
-function ErrorHandler(err, sqlCommand) {
-  console.error(
-    `\nERROR : [${sqlCommand}]
-      message : ${err.message},
-      code    : ${err.code}\n`
-  );
-}
-
 const Handler = {
+
+  // <-- todo +++ : add session logic here, deny post request if user is still logged in
+
   AddUser : async function(req,res) {
     let { uid, psw1, psw2 } = req.body;
 
@@ -42,6 +37,9 @@ const Handler = {
   },
 
   LoginUser: async function(req,res) {
+
+    // <-- todo +++ : add session logic here, deny post request if user is still logged in
+
     let { uid, psw } = req.body;
     try {
       // Check is user exist
@@ -60,7 +58,8 @@ const Handler = {
         return 'Incorrect Password';
       }
 
-      return 'Login Success';
+      req.session.user = uid;
+      res.redirect('/login');
       
     } catch (err) {
       console.error(err);

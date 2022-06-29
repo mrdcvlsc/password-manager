@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/mrdcvlsc/password-manager#readme",
   "dependencies": {
+    "@fastify/cookie": "^7.0.0",
     "@fastify/formbody": "^7.0.1",
+    "@fastify/session": "^9.0.0",
     "@fastify/static": "^6.4.0",
     "bcrypt": "^5.0.1",
     "better-sqlite3": "^7.5.3",

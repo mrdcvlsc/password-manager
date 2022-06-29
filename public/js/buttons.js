@@ -2,6 +2,27 @@ const AddWall = document.querySelector('.add-wall');
 const BtnSet1 = document.querySelector('.btn-set1');
 const BtnSet2 = document.querySelector('.btn-set2');
 
+// logout button
+document.querySelector('.logout').addEventListener('click',function(){
+  console.log('logout');
+  fetch('/logout', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'post',
+    body: JSON.stringify({})
+  }).then(function (response) {
+    response.json().then(function (loggedOutSuccess) {
+      if(loggedOutSuccess) {
+        window.location.href = "/login";
+      }
+    });
+  }).catch(function (error) {
+    console.error(error);
+  });
+});
+
 // remove button - show selection
 document.querySelector('.remove-record').addEventListener('click',function(){
   BtnSet1.style.display = 'none';

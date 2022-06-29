@@ -6,6 +6,9 @@ class Statement {
     try
     {
       // statements for password manager user accounts
+      this.LoginUser = db.prepare(
+        'SELECT hash, salt FROM users WHERE uid = ?'
+      );
 
       this.AddUser = db.prepare(
         'INSERT INTO users (uid, salt, hash) VALUES (?, ?, ?)'
@@ -30,7 +33,7 @@ class Statement {
       );
 
       this.EditRecord = db.prepare(
-        'UPDATE records SET uid = ?, username = ?, platform = ?, password = ? WHERE ukey = ?'
+        'UPDATE records SET uid = ?, username = ?, platform = ?, password = ? WHERE uid = ? AND username = ? AND platform = ?'
       );
 
       this.ReadRecord = db.prepare(

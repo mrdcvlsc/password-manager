@@ -47,6 +47,7 @@ const Handler = {
       for(let row of PrepStatement.LoginUser.iterate(uid)){
         result.push(row);
       }
+
       if(result.length !== 1) {
         return 'User does not exist';
       }
@@ -64,6 +65,24 @@ const Handler = {
     } catch (err) {
       console.error(err);
       return 'Opps! something went wrong...';
+    }
+  },
+
+  ViewRecords: async function(req,res) {
+    if(req.session.user) {
+      let uid = req.session.user;
+
+      // get records for specific user
+      let result = [];
+      for(let row of PrepStatement.ReadRecord.iterate(uid)) {
+        result.push(row);
+      }
+
+      console.log('\n\nrecords :\n', result);
+
+      return result;
+    } else {
+      return 'You Are not logged in';
     }
   }
 }

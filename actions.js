@@ -10,6 +10,15 @@ const PMUsers = {
   }
 }
 
+const Records = {
+  type: 'object',
+  properties: {
+    username : { type : 'string' },
+    platform : { type : 'string' },
+    password : { type : 'string' }
+  }
+}
+
 const Option = {
 
   AddUser: {
@@ -51,6 +60,18 @@ const Option = {
       }
     },
     handler: Handler.LoginUser
+  },
+
+  ViewRecords: {
+    schema: {
+      response: {
+        200: {
+          type: 'array',
+          items: Records
+        }
+      }
+    },
+    handler: Handler.ViewRecords
   }
 }
 
@@ -58,6 +79,7 @@ async function actions (fastify)
 {
   fastify.post('/login', Option.LoginUser);
   fastify.post('/register', Option.AddUser);
+  fastify.get('/records', Option.ViewRecords);
   fastify.post('/logout', async (req,res) => {
     try {
       await req.session.destroy();

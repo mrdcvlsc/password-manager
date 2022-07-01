@@ -72,14 +72,38 @@ const Option = {
       }
     },
     handler: Handler.ViewRecords
+  },
+
+  AddRecord: {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['platform', 'username', 'pass1', 'pass2'],
+        properties: {
+          platform: { type : 'string' },
+          username: { type : 'string' },
+          pass1: { type : 'string' },
+          pass2: { type : 'string' },
+        }
+      },
+      response: {
+        201: {
+          type: 'object',
+          properties: {
+            changes: { type: 'number' }
+          }
+        }
+      }
+    },
+    handler: Handler.AddRecord
   }
 }
 
 async function actions (fastify)
 {
+  // password-manager user actions
   fastify.post('/login', Option.LoginUser);
   fastify.post('/register', Option.AddUser);
-  fastify.get('/records', Option.ViewRecords);
   fastify.post('/logout', async (req,res) => {
     try {
       await req.session.destroy();
@@ -90,6 +114,11 @@ async function actions (fastify)
       return false;
     }
   });
+
+  // user record actions
+  fastify.get('/records', Option.ViewRecords);
+  fastify.post('/records/add', Option.AddRecord);
+  // fastify.post('/records/remove', Option.RemoveRecords);
 }
 
 module.exports = actions;

@@ -58,9 +58,12 @@ const Handler = {
       if(!Authentic) {
         return 'Incorrect Password';
       }
-
+      
+      // record user session
       req.session.user = uid;
-      res.redirect('/login');
+
+      // bring to view
+      res.redirect('/view');
       
     } catch (err) {
       console.error(err);
@@ -78,11 +81,30 @@ const Handler = {
         result.push(row);
       }
 
-      console.log('\n\nrecords :\n', result);
-
       return result;
     } else {
       return 'You Are not logged in';
+    }
+  },
+
+  AddRecord: async function(req,res) {
+    if(req.session.user) {
+      let uid = req.session.user;
+
+      let {username, platform, pass1, pass2} = req.body;
+
+      // check password if equal
+      if(pass1 !== pass2) {
+        return 'Opps, Password did not match!';
+      }
+
+      // add record
+      let result = PrepStatement.AddRecord.run(uid,username,platform,pass1);
+
+      // bring to view
+      res.redirect('/view');
+    } else {
+      return 'Opps, Something went wrong';
     }
   }
 }

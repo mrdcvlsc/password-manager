@@ -24,7 +24,7 @@ const Handler = {
 
         // store in database
         let result = PrepStatement.AddUser.run(uid,salt,hash);
-        return result;
+        return 'Account Created, Login to continue';
       } catch (err) {
         if(err.code==='SQLITE_CONSTRAINT_PRIMARYKEY') {
           return 'Username already existed';

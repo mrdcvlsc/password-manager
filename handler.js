@@ -1,5 +1,4 @@
-const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 10;
+const Password = require('./crypto-scheme');
 
 // initialize database and it's tables
 const { db } = require('./database');
@@ -21,8 +20,7 @@ const Handler = {
     } else {
       try {
         // password hasing
-        let salt = await bcrypt.genSalt(SALT_ROUNDS);
-        let hash = await bcrypt.hash(psw1,salt);
+        let { salt, hash } = await Password.Hash(psw1);
 
         // store in database
         let result = PrepStatement.AddUser.run(uid,salt,hash);
@@ -53,7 +51,7 @@ const Handler = {
       }
 
       // Authenticate
-      let Authentic = await bcrypt.compare(psw,result[0].hash);
+      let Authentic = await Password.Compare(psw,result[0].hash);
 
       if(!Authentic) {
         return 'Incorrect Password';

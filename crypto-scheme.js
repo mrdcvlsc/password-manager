@@ -15,8 +15,11 @@ const Password = {
     return await bcrypt.compare(password,hash);
   },
 
-  Encrypt : function(userPassword, plainText) {
-    let KEY = crypto.createHash('sha256').update(userPassword).digest(); 
+  GenKey : function(userPassword) {
+    return crypto.createHash('sha256').update(userPassword).digest();
+  },
+
+  Encrypt : function(KEY, plainText) {
     let IV  = crypto.randomBytes(16);
 
     let cipher = crypto.createCipheriv('aes-256-gcm',KEY,IV);
@@ -26,8 +29,7 @@ const Password = {
     return cipherText.toString('base64') + IV.toString('base64');
   },
 
-  Decrypt : function(userPassword, cipherText) {
-    let KEY = crypto.createHash('sha256').update(userPassword).digest();
+  Decrypt : function(KEY, cipherText) {
     let IV  = Buffer.from(cipherText.substring(cipherText.length - 24),'base64');
 
     cipherText = cipherText.substring(0,cipherText.length-24);

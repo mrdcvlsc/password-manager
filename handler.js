@@ -59,6 +59,7 @@ const Handler = {
       
       // record user session
       req.session.user = uid;
+      req.session.ukey = Password.GenKey(psw);
 
       // bring to view
       res.redirect('/view');
@@ -76,6 +77,7 @@ const Handler = {
       // get records for specific user
       let result = [];
       for(let row of PrepStatement.ReadRecord.iterate(uid)) {
+        row.password = Password.Decrypt(req.session.ukey,row.password);
         result.push(row);
       }
 
@@ -96,8 +98,19 @@ const Handler = {
         return 'Opps, Password did not match!';
       }
 
+      // check if record already exist
+      let results = [];
+      for(let row of PrepStatement.CheckRecord.iterate(uid,username,platform)){
+        results.push(row);
+      }
+
+      if(results.length!==0) {
+        return 'Record already existed';
+      }
+
       // add record
-      let result = PrepStatement.AddRecord.run(uid,username,platform,pass1);
+      let EncryptedPassword = Password.Encrypt(req.session.ukey,pass1);
+      PrepStatement.AddRecord.run(uid,username,platform,EncryptedPassword);
 
       // bring to view
       res.redirect('/view');

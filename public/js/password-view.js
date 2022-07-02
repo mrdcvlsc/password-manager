@@ -1,3 +1,27 @@
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2022 mrdcvlsc
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+*/
+
 // fetch data
 let response = await fetch('/records');
 let records = await response.json();
@@ -62,13 +86,24 @@ let SerachTypeEvent = SearchBar.addEventListener('input',function() {
 document.querySelector('.confirm-delete').addEventListener('click', function() {
   if (TableBody) {
 
+    let toBeDeleted = [];
+
     const data = [...TableBody.rows].map((r) => [...r.cells].map((c) => c.innerText));
     let selections = Array.from(document.querySelectorAll(".selection > input"));
     for(let i=0; i<data.length; ++i) {
       data[i][0] = selections[i].checked;
+      if(selections[i].checked) {
+        toBeDeleted.push({
+          platform : data[i][1],
+          username : data[i][2]
+        });
+      }
     }
 
-    console.log(data);
+    console.log(toBeDeleted);
+    if(toBeDeleted.length>0) {
+      
+    }
   }
 });
 
@@ -99,6 +134,9 @@ document.querySelector('.logout').addEventListener('click',function(){
 
 // remove button - show selection
 document.querySelector('.remove-record').addEventListener('click',function(){
+
+  SearchBar.style.display = 'none';
+
   BtnSet1.style.display = 'none';
   BtnSet2.style.display = 'block';
 
@@ -111,6 +149,9 @@ document.querySelector('.remove-record').addEventListener('click',function(){
 
 // cancle remove - hide selection, unselect selections
 document.querySelector('.cancle-delete').addEventListener('click',function(){
+
+  SearchBar.style.display = 'inline';
+
   BtnSet1.style.display = 'block';
   BtnSet2.style.display = 'none';
 

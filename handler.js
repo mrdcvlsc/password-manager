@@ -32,9 +32,10 @@ const PrepStatement = new (require('./statements'))(db);
 
 const Handler = {
 
-  // <-- todo +++ : add session logic here, deny post request if user is still logged in
-
   AddUser : async function(req,res) {
+
+    if(req.session.user) return 'Logout First';
+
     let { uid, psw1, psw2 } = req.body;
 
     if(psw1!==psw2) {
@@ -60,7 +61,7 @@ const Handler = {
 
   LoginUser: async function(req,res) {
 
-    // <-- todo +++ : add session logic here, deny post request if user is still logged in
+    if(req.session.user) return 'You are already logged in';
 
     let { uid, psw } = req.body;
     try {
@@ -119,7 +120,7 @@ const Handler = {
 
       // check password if equal
       if(pass1 !== pass2) {
-        return 'Opps, Password did not match!';
+        return 'Opps!, Password did not match!';
       }
 
       // check if record already exist
@@ -139,7 +140,28 @@ const Handler = {
       // bring to view
       res.redirect('/view');
     } else {
-      return 'Opps, Something went wrong';
+      return 'Login First';
+    }
+  },
+
+  RemoveRecords: async function(req,res) {
+    if(req.session.user) {
+      let deletedRecords = 0;
+
+      for(let i=0; i<req.body.length; ++i) {
+        let DeleteResult = PrepStatement.DeleteRecord.run(
+          req.session.user,
+          req.body[i].username,
+          req.body[i].platform
+        );
+        deletedRecords += DeleteResult.changes;
+      }
+
+      console.log('Total Items Delete :',deletedRecords);
+      return (deletedRecords) ? 'Success' : false;
+      
+    } else {
+      return false;
     }
   }
 }

@@ -120,6 +120,20 @@ const Option = {
       }
     },
     handler: Handler.AddRecord
+  },
+
+  RemoveRecords: {
+    schema: {
+      body: {
+        type: 'array',
+        items: {
+          type: 'object',
+          required: ['username', 'platform'],
+          properties: Records.properties
+        }
+      }
+    },
+    handler: Handler.RemoveRecords
   }
 }
 

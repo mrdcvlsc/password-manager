@@ -26,8 +26,6 @@
 let response = await fetch('/records');
 let records = await response.json();
 
-console.log(records);
-
 // Fill Table
 let TableBody = document.querySelector('tbody');
 function FillTable(data) {
@@ -83,7 +81,7 @@ let SerachTypeEvent = SearchBar.addEventListener('input',function() {
 });
 
 // confirm-delete
-document.querySelector('.confirm-delete').addEventListener('click', function() {
+document.querySelector('.confirm-delete').addEventListener('click', async function() {
   if (TableBody) {
 
     let toBeDeleted = [];
@@ -100,9 +98,23 @@ document.querySelector('.confirm-delete').addEventListener('click', function() {
       }
     }
 
-    console.log(toBeDeleted);
     if(toBeDeleted.length>0) {
-      
+      try {
+        let deleteResponse = await (await fetch('/records/remove',{
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'post',
+          body: JSON.stringify(toBeDeleted)
+        })).json();
+        console.log('deleteResponse : ',deleteResponse);
+
+        if(deleteResponse) window.location.href = '/view';
+        
+      } catch(err) {
+        console.error(err);
+      }
     }
   }
 });
@@ -112,24 +124,21 @@ const BtnSet1 = document.querySelector('.btn-set1');
 const BtnSet2 = document.querySelector('.btn-set2');
 
 // logout button
-document.querySelector('.logout').addEventListener('click',function(){
-  console.log('logout');
-  fetch('/logout', {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: 'post',
-    body: JSON.stringify({})
-  }).then(function (response) {
-    response.json().then(function (loggedOutSuccess) {
-      if(loggedOutSuccess) {
-        window.location.href = "/login";
-      }
-    });
-  }).catch(function (error) {
-    console.error(error);
-  });
+document.querySelector('.logout').addEventListener('click', async function(){
+  try {
+    let logOutSuccess = await (await fetch('/logout', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({})
+    })).json();
+
+    if(logOutSuccess) window.location.href = '/login';
+  } catch(err) {
+    console.error(err);
+  }
 });
 
 // remove button - show selection

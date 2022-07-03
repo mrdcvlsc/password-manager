@@ -62,6 +62,11 @@ class Statement {
         'SELECT username, platform, password FROM records WHERE uid = ?'
       );
 
+      /**
+       * @param {String} uid      password-manager current logged in user.
+       * @param {String} username a recorded username for an account.
+       * @param {String} platform the platform of the recorded account.
+       */
       this.DeleteRecord = db.prepare(
         'DELETE FROM records WHERE uid = ? AND username = ? AND platform = ?'
       );

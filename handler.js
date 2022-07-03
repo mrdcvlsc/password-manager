@@ -30,18 +30,24 @@ const { db } = require('./database');
 // initialize database statements
 const PrepStatement = new (require('./statements'))(db);
 
+const RenderMessage = require('./render');
+
 const Handler = {
 
   AddUser : async function(req,res) {
 
-    if(req.session.user) return 'Logout First';
+    res.header('Content-Type','text/html; charset=utf-8');
+
+    if(req.session.user) return RenderMessage("You're still logged in",'view','Log-out first');
 
     let { uid, psw1, psw2 } = req.body;
 
     if(psw1!==psw2) {
-      return 'Password did not match';
+      res.code(400);
+      return RenderMessage("The password you enter did not match",'register','Go back to register');
     } else if(psw1.length < 8) {
-      return 'Password too short';
+      res.code(400);
+      return RenderMessage("The password you enter is too short",'register','Go back to register');
     } else {
       try {
         // password hasing
@@ -49,19 +55,24 @@ const Handler = {
 
         // store in database
         let result = PrepStatement.AddUser.run(uid,salt,hash);
-        return 'Account Created, Login to continue';
+        res.code(200);
+        return RenderMessage("Account sucessfully created",'login','Log-in now');
       } catch (err) {
         if(err.code==='SQLITE_CONSTRAINT_PRIMARYKEY') {
-          return 'Username already existed';
+          res.code(400);
+          return RenderMessage("That username is already taken",'register','Go back to register');
         }
-        return 'Opps! Something Went Wrong';
+        res.code(412);
+        return RenderMessage('Opps!, Something went wrong...','register','Go back to register');
       }
     }
   },
 
   LoginUser: async function(req,res) {
 
-    if(req.session.user) return 'You are already logged in';
+    res.header('Content-Type','text/html; charset=utf-8');
+
+    if(req.session.user) return RenderMessage("You're already logged in",'view','Continue');
 
     let { uid, psw } = req.body;
     try {
@@ -72,14 +83,15 @@ const Handler = {
       }
 
       if(result.length !== 1) {
-        return 'User does not exist';
+        res.code(401);
+        return RenderMessage('Incorrect username or password','login','Go Back to Log-in');
       }
 
       // Authenticate
       let Authentic = await Password.Compare(psw,result[0].hash);
-
       if(!Authentic) {
-        return 'Incorrect Password';
+        res.code(401);
+        return RenderMessage('Incorrect username or password','login','Go Back to Log-in');
       }
       
       // record user session
@@ -90,8 +102,8 @@ const Handler = {
       res.redirect('/view');
       
     } catch (err) {
-      console.error(err);
-      return 'Opps! something went wrong...';
+      res.code(412);
+      return RenderMessage('Opps!, Something went wrong...','login','Go Back to Log-in');
     }
   },
 
@@ -108,19 +120,23 @@ const Handler = {
 
       return result;
     } else {
-      return 'You Are not logged in';
+      return 403;
     }
   },
 
   AddRecord: async function(req,res) {
-    if(req.session.user) {
-      let uid = req.session.user;
 
+    if(req.session.user) {
+
+      res.header('Content-Type','text/html; charset=utf-8');
+
+      let uid = req.session.user;
       let {username, platform, pass1, pass2} = req.body;
 
       // check password if equal
       if(pass1 !== pass2) {
-        return 'Opps!, Password did not match!';
+        res.code(405);
+        return RenderMessage("The password you enter did not match",'view','Go Back');
       }
 
       // check if record already exist
@@ -130,7 +146,8 @@ const Handler = {
       }
 
       if(results.length!==0) {
-        return 'Record already existed';
+        res.code(405);
+        return RenderMessage("That username is already in use for that platform",'view','Go Back');
       }
 
       // add record
@@ -140,7 +157,8 @@ const Handler = {
       // bring to view
       res.redirect('/view');
     } else {
-      return 'Login First';
+      res.code(403);
+      return RenderMessage("You're not logged in!",'login','Go Back to Log-in');
     }
   },
 
@@ -157,8 +175,7 @@ const Handler = {
         deletedRecords += DeleteResult.changes;
       }
 
-      console.log('Total Items Delete :',deletedRecords);
-      return (deletedRecords) ? 'Success' : false;
+      return (deletedRecords) ? true : false;
       
     } else {
       return false;

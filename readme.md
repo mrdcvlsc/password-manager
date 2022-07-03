@@ -1,6 +1,6 @@
 # password-manager
 
-A simple web application for managing and storing password, the **frontend** was created using vanila html, css, and javascript, it support mobile and desktop view, then the **backend** uses nodejs and fastify web framework.
+A simple web application for managing and storing password, the **frontend** was created using vanila ***html***, ***css***, and ***javascript***, it supports mobile and desktop view, the **backend** uses ***nodejs*** and ***fastify*** web framework, and for the **database**, sqlite3 is use with the help of ***better-sqlite3***.
 
 Since this is a password-manager application where you can store sensitive information, I (the author) **do not claim** that it is a secure & foolproof application, there might be some vulnerabilities that I have missed when implementing this application, I created this project with the intent to learn frontend and backend web development only (_not to make a production grade application_), USE AT YOUR OWN RISK.
 

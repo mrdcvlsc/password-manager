@@ -52,15 +52,6 @@ async function routes (fastify)
     }
   });
 
-  // dev function - display who's logged in
-  fastify.get('/current', (req,res) => {
-    if(req.session.user) {
-      res.send(`User Loggedin : ${req.session.user}`);
-    } else {
-      res.send('No User Loggedin Currently');
-    }
-  });
-
   fastify.setNotFoundHandler((req, res) => {
     res.sendFile('html/not-found.html');
 })

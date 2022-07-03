@@ -14,3 +14,7 @@ All of the data saved in this demo web-app will be deleted after some time, It i
 
 **Algorithms**
 - [Encryption of Data](cryptography.md)
+
+**Notes**
+
+During development, or when hosting the web application locally; set the session cookie's ```secure``` property at line ```52``` of the ```app.js``` file into ```false```.

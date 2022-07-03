@@ -27,43 +27,78 @@ class Statement {
   {
     try
     {
-      // statements for password manager user accounts
+      /** 
+       * @function `.iterate(uid)` method for running the SQL query. 
+       * @param {String} uid password-manager's user that sends the login request.
+       */
       this.LoginUser = db.prepare(
         'SELECT hash, salt FROM users WHERE uid = ?'
       );
 
+      /** 
+       * @function `.run(uid,salt,hash)` method for running the SQL query. 
+       * @param {String} uid  password-manager's logged in user that sends the request.
+       * @param {String} salt bcrypt salt output.
+       * @param {String} hash bcrypt hash output.
+       */
       this.AddUser = db.prepare(
         'INSERT INTO users (uid, salt, hash) VALUES (?, ?, ?)'
       );
 
+      /**
+       * @unused_function intended to be use in the future.
+       */
       this.EditUser = db.prepare(
         'UPDATE users SET uid = ?, salt = ?, hash = ? WHERE uid = ?'
       );
 
+      /** 
+       * @function `.run(uid)` method for running the SQL query. 
+       * @param {String} uid   password-manager's logged in user that sends the request.
+      */
       this.DeleteUser = db.prepare(
         'DELETE FROM users WHERE uid = ?'
       );
 
-
-      // statements for records stored in password manager
+      /** 
+       * @function `.iterate(uid,username,platform)` method for running the SQL query. 
+       * @param {String} uid      password-manager's logged in user that sends the request.
+       * @param {String} username a recorded username for an account.
+       * @param {String} platform the platform of the recorded account.
+       */
       this.CheckRecord = db.prepare(
         'SELECT * FROM records WHERE uid = ? AND username = ? AND platform = ?'
       );
 
+      /** 
+       * @function `.run(uid,username,platform,password)` method for running the SQL query. 
+       * @param {String} uid      password-manager's logged in user that sends the request.
+       * @param {String} username a recorded username for an account.
+       * @param {String} platform the platform of the recorded account.
+       * @param {String} password to be encrypted plain text password of the recorded account.
+       */
       this.AddRecord = db.prepare(
         'INSERT INTO records (uid, username, platform, password) VALUES (?, ?, ?, ?)'
       );
 
+      /**
+       * @unused_function intended to be use in the future.
+       */
       this.EditRecord = db.prepare(
         'UPDATE records SET uid = ?, username = ?, platform = ?, password = ? WHERE uid = ? AND username = ? AND platform = ?'
       );
 
+      /** 
+       * @function `.iterate(uid)` method for running the SQL query. 
+       * @param {String} uid       password-manager's logged in user that sends the request.
+       */
       this.ReadRecord = db.prepare(
         'SELECT username, platform, password FROM records WHERE uid = ?'
       );
 
-      /**
-       * @param {String} uid      password-manager current logged in user.
+      /** 
+       * @function `.run(uid,username,platform)`         method for running the SQL query. 
+       * @param {String} uid      password-manager's logged in user that sends the request.
        * @param {String} username a recorded username for an account.
        * @param {String} platform the platform of the recorded account.
        */

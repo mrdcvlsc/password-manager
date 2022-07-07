@@ -39,9 +39,24 @@ function FillTable(data) {
     let username = document.createElement('td');
     let password = document.createElement('td');
 
-    platform.innerHTML = row.platform;
-    username.innerHTML = row.username;
-    password.innerHTML = row.password;
+    platform.innerText = row.platform;
+    username.innerText = row.username;
+
+    let pvalue = document.createElement('input');
+    pvalue.className = 'p';
+    pvalue.type = 'password';
+    pvalue.value = row.password;
+    pvalue.readOnly = true;
+
+    password.appendChild(pvalue);
+
+    pvalue.addEventListener('mouseover', () => {
+      pvalue.type = 'text';
+    });
+
+    pvalue.addEventListener('mouseleave', () => {
+        pvalue.type = 'password';
+    });
 
     tr.appendChild(platform);
     tr.appendChild(username);

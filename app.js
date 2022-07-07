@@ -49,7 +49,7 @@ fastify.register(fastifyCookie);
 fastify.register(fastifySession,{
   secret: srstrg(16),
   cookie: {
-    secure: true,
+    secure: false,
     httpOnly: true,
     maxAge: 3600000 // 1 hour session lifetime
   },

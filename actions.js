@@ -137,8 +137,15 @@ const Option = {
   }
 }
 
+const RenderMessage = require('./render');
+
 async function actions (fastify)
 {
+  fastify.decorateReply('renderHtml', function(h1,href,linkText) {
+    this.type('text/html');
+    this.send(RenderMessage(h1,href,linkText));
+  });
+
   // password-manager user actions
   fastify.post('/login', Option.LoginUser);
   fastify.post('/register', Option.AddUser);

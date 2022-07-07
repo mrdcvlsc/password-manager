@@ -54,7 +54,7 @@ async function routes (fastify)
 
   fastify.setNotFoundHandler((req, res) => {
     res.sendFile('html/not-found.html');
-})
+  });
 }
 
 module.exports = routes;

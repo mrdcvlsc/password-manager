@@ -20,7 +20,7 @@ All of the data saved in this demo web-app will be deleted after some time, It i
 
 > **Note**
 
-> During development, or when hosting the web application locally; set the session cookie's ```secure``` property at line ```52``` of the ```app.js``` file into ```false```.
+> During development, or when hosting the web application locally; the session cookie's ```secure``` property at line ```52``` of the ```app.js``` file needs to be set to ```false``` in order to enable logging in.
 
 -----
 

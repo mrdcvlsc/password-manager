@@ -22,26 +22,28 @@
  * SOFTWARE.
 */
 
-async function routes (fastify)
-{
+async function routes (fastify) {
+
   fastify.get('/', (req,res)=>{
-    res.redirect('/view');
+    res.redirect('/login');
   });
 
-  fastify.get('/login', (req,res) => {
-    if(req.session.user) {
-      res.redirect('/view');
-    } else {
+  // for more info about hook life cycle or sequence see https://www.fastify.io/docs/latest/Reference/Lifecycle/
+  fastify.register(async function(fastify) {
+
+    fastify.addHook('preValidation', async function(req,res) {
+      if(req.session.user) {
+        return res.sendFile('html/password-view.html');
+      }
+    });
+
+    fastify.get('/login', (req,res) => {
       res.sendFile('html/login.html');
-    }
-  });
-
-  fastify.get('/register', (req,res) => {
-    if(req.session.user) {
-      res.redirect('/view');
-    } else {
+    });
+  
+    fastify.get('/register', (req,res) => {
       res.sendFile('html/register.html');
-    }
+    });
   });
 
   fastify.get('/view', (req,res) => {

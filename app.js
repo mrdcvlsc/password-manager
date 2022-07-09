@@ -27,6 +27,10 @@ const fastify = require('fastify')({logger:true});
 const fastifyStatic = require('@fastify/static');
 const fastifyCookie = require('@fastify/cookie');
 const fastifySession = require('@fastify/session');
+const fastifyHelmet = require('@fastify/helmet')
+
+fastify.register(fastifyHelmet,{global:true})
+
 const path = require('path');
 const os = require('os');
 const networkInterfaces = os.networkInterfaces();

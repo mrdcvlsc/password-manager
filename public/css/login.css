@@ -7,6 +7,17 @@
   outline: none;
 }
 
+.link-button {
+  text-decoration: none;
+  color:black;
+  font-family: sans-serif;
+  font-weight:900 !important;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body{
   background-image: linear-gradient(200deg,#ffef12, rgb(230, 0, 69) 30%, #002fff);
 }
@@ -82,12 +93,12 @@ h1{
   color: rgb(255, 0, 157);
 }
 
-a{
+.links{
   text-decoration: underline;
   color: yellow;
 }
 
-a:focus{
+.links:focus{
   text-decoration: underline;
   color: rgb(255, 0, 170);
 }

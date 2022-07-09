@@ -38,7 +38,7 @@ return `<!DOCTYPE html>
 <body>
   <div class="main">
     <h1>${Message}</h1>
-    <a href="/${link}">${linkText}</a>
+    <a class="links" href="/${link}">${linkText}</a>
   </div>
 </body>
 </html>`

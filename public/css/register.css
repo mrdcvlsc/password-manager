@@ -81,12 +81,12 @@ h1{
   color: rgb(255, 0, 157);
 }
 
-a{
+.links{
   text-decoration: underline;
   color: yellow;
 }
 
-a:focus{
+.links:focus{
   text-decoration: underline;
   color: rgb(255, 0, 170);
 }

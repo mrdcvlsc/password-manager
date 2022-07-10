@@ -1,2 +1,0 @@
-default:
-	node tests

@@ -201,3 +201,13 @@ document.querySelector('.add-record').addEventListener('click', function(){
 document.querySelector('.add-cancle').addEventListener('click', function(){
   AddWall.style.display = 'none';
 });
+
+// User menu
+const UserMenuDiv = document.querySelector('.user-menu');
+document.querySelector('.menu-button').addEventListener('click', ()=> {
+  UserMenuDiv.style.display = 'flex';
+});
+
+document.querySelector('.user-menu-exit').addEventListener('click', ()=> {
+  UserMenuDiv.style.display = 'none';
+});

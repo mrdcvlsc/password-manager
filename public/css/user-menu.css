@@ -1,0 +1,29 @@
+.user-menu {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(53, 238, 192, 0.856);
+    display: none;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    position: absolute !important;
+    top: 0;
+}
+
+.menu-containers {
+    width: clamp(300px,90%,700px);
+    border: solid black;
+}
+
+.user-name {
+    border: transparent;
+    background-color: transparent;
+}
+
+.user-menu-exit {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

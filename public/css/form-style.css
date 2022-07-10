@@ -7,6 +7,17 @@
   outline: none;
 }
 
+.link-button {
+  text-decoration: none;
+  color:black;
+  font-family: sans-serif;
+  font-weight:900 !important;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body{
   background-image: linear-gradient(200deg,#ffef12, rgb(230, 0, 69) 30%, #002fff);
 }
@@ -29,25 +40,25 @@ h1{
   flex-wrap: wrap;
 }
 
-.register-cred{
+.register-cred, .login-cred{
   margin: 5vh 0px;
   display:block;
   height: 30px;
   width: 100%;
-  border: black 1px;
+  border: black thin;
   border-radius: 5px;
   padding: 10px;
   font-size: 0.8rem;
   font-weight: bold;
+  transition: ease 0.2s;
 }
 
-.register-cred:hover{
-  transition: ease 0.1s;
-  border: rgb(0, 0, 0) 2px solid;
+.register-cred:hover, .login-cred:hover{
+  outline: solid rgb(0, 0, 0) medium;
 }
 
-.register-cred:focus{
-  border: rgb(24, 202, 0) 3px solid;
+.register-cred:focus, .login-cred:focus{
+  outline: solid rgb(24, 202, 0) medium;
 }
 
 .lgn{
@@ -61,19 +72,22 @@ h1{
   border: 1px rgb(255, 255, 255) solid;
   border-radius: 4px;
   height: 30px;
-  width: 100%;
+  width: 47%;
   font-weight:900;
+  transition: ease 0.2s;
+}
+
+.register {
+  width: 100% !important;
 }
 
 .btn:hover {
-  transition: ease 0.2s;
   background-color: black;
   color: white;
 }
 
 .btn:active {
   border: 3px rgb(24, 233, 24) solid;
-  transition: ease 0.2s;
 }
 
 .btn:focus {

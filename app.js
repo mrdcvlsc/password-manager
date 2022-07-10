@@ -80,6 +80,13 @@ const start = async () => {
 }
 start();
 
+// arguments
+if(process.argv[2]==='BUILD_TEST') {
+  setTimeout(()=> {
+    process.exit(0);
+  },60000);
+}
+
 // display device's network IP
 if(typeof(networkInterfaces.wlp2s0) !== 'undefined') {
   console.log(`\n(a) | app-server-ip: ${networkInterfaces.wlp2s0[0].address}:${PORT}\\\n\n`);

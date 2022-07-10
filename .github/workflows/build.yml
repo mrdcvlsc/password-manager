@@ -16,11 +16,11 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Install Dependencies
+      - name: install dependencies
         run: npm install
 
-      - name: Run Build Test
-        run: node app BUILD_TEST
+      - name: run build test
+        run: node app BUILD
 
   windows-build:
 
@@ -30,8 +30,8 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Install Dependencies
+      - name: install dependencies
         run: npm install
 
-      - name: Run Build Test
-        run: node app BUILD_TEST
+      - name: run build test
+        run: node app BUILD

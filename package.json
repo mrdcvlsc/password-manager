@@ -4,8 +4,8 @@
   "description": "A simple web-app for storing passwords",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node app.js PROD",
+    "dev": "nodemon app.js DEV"
   },
   "repository": {
     "type": "git",

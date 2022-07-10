@@ -22,15 +22,43 @@
  * SOFTWARE.
 */
 
-const crypto = require('crypto');
-const fastify = require('fastify')({logger:true});
+const MODE = process.argv[2];
+
+let CookieSecureMode;
+
+switch(MODE) {
+  case 'PROD': {
+    console.log('\nProduction Mode\n');
+    CookieSecureMode = true;
+    FastifyLoggerMode = false;
+  } break;
+  case 'BUILD': {
+    console.log('\nBuild Mode\n');
+    CookieSecureMode = false;
+    FastifyLoggerMode = false;
+  } break;
+  case 'DEV': {
+    console.log('\nDevelopment Mode\n');
+    CookieSecureMode = false;
+    FastifyLoggerMode = true;
+  } break;
+  case undefined: {
+    console.log('\nNEED A MODE ARGUMENT\n\n\tMODES:\n\n\t\tPROD, BUILD, DEV\n');
+    process.exit(1);
+  }
+  default: {
+    console.log(`\nTHE MODE '${MODE}' SPECIFIED IS WRONG\n\n\tMODES:\n\n\t\tPROD, BUILD, DEV\n`);
+    process.exit(1);
+  }
+}
+
+const fastify = require('fastify')({logger:FastifyLoggerMode});
 const fastifyStatic = require('@fastify/static');
 const fastifyCookie = require('@fastify/cookie');
 const fastifySession = require('@fastify/session');
 const fastifyHelmet = require('@fastify/helmet')
 
-fastify.register(fastifyHelmet,{global:true})
-
+const crypto = require('crypto');
 const path = require('path');
 const os = require('os');
 const networkInterfaces = os.networkInterfaces();
@@ -43,6 +71,9 @@ function srstrg(length) {
   return buffer.toString('hex');
 }
 
+// register helmet protection
+fastify.register(fastifyHelmet, { global : true } );
+
 // serve static front-end resources
 fastify.register(fastifyStatic.default, {
   root: path.join(__dirname, 'public')
@@ -53,7 +84,7 @@ fastify.register(fastifyCookie);
 fastify.register(fastifySession,{
   secret: srstrg(16),
   cookie: {
-    secure: false,
+    secure: CookieSecureMode,
     httpOnly: true,
     maxAge: 3600000 // 1 hour session lifetime
   },
@@ -81,10 +112,12 @@ const start = async () => {
 start();
 
 // arguments
-if(process.argv[2]==='BUILD_TEST') {
+if(MODE === 'BUILD') {
+  console.log('\nBUILD MODE - Closes in 10 seconds');
   setTimeout(()=> {
+    console.log('Build Working!');
     process.exit(0);
-  },60000);
+  },10000);
 }
 
 // display device's network IP

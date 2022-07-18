@@ -19,6 +19,9 @@ jobs:
       - name: install dependencies
         run: npm install
 
+      - name: rename template.env to .env
+        run: mv template.env .env
+
       - name: run build test
         run: node app BUILD
 
@@ -32,6 +35,9 @@ jobs:
 
       - name: install dependencies
         run: npm install
+
+      - name: rename template.env to .env
+        run: ren "template.env" ".env"
 
       - name: run build test
         run: node app BUILD

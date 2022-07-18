@@ -1,13 +1,17 @@
 # Cryptographic Algorithms
 
-**user Table**
+**`user` Table**
 
 | row | algorithm
 | --- | --- |
 | uid | none |
 | sign | bcrypt |
 
-**records Table**
+<br>
+
+-----
+
+**`records` Table**
 
 | row | algorithm |
 | --- | --- |
@@ -15,3 +19,14 @@
 | username | none |
 | platform | none |
 | password | SHA256, SPRStrG AES256-GCM |
+
+<br>
+
+-----
+
+**Session `ukey` encryption - login**
+| requirements | origin |
+| --- | --- |
+| sessionIV | `SPRStrG` |
+| session key encryption | `AES256-GCM` |
+| SESSION_KEY | `.env` |

@@ -1,5 +1,7 @@
 # password-manager
 
+This branch uses **better-sqlite3** as it's `session store`.
+
 ![build](https://github.com/mrdcvlsc/password-manager/actions/workflows/build.yml/badge.svg)
 ![tests](https://github.com/mrdcvlsc/password-manager/actions/workflows/tests.yml/badge.svg)
 
@@ -13,7 +15,7 @@ A simple web application for managing and storing password, the **frontend** was
 
 **Demo**
 
-Here is a demo of the web-app deployed in heroku. [See Demo](https://password-manager-demo-app.herokuapp.com/).
+Here is a demo of the web-app deployed in heroku. **[See Demo](https://password-manager-demo-app.herokuapp.com/)**.
 
 https://password-manager-demo-app.herokuapp.com/
 
@@ -32,4 +34,20 @@ All of the data saved in this demo web-app will be deleted after some time, It i
 
 -----
 
-**[TODO LIST](todo.md)**
+**TODO : [CLICK HERE](todo.md)**
+
+-----
+
+**Run Locally**
+
+```shell
+git clone https://github.com/mrdcvlsc/password-manager.git
+cd password-manager
+mv template.env .env
+npm install
+npm run dev
+```
+
+If the `mv` command is not supported in your system,
+just rename the `template.env` to `.env` before
+running `npm run dev`.

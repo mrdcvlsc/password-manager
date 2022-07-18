@@ -57,7 +57,7 @@ const Password = {
 
   /**
    * AES256 Plain Text Encryption.
-   * @param {object} KEY `Buffer` object of 32 byte/length.
+   * @param {Buffer} KEY `Buffer` object of 32 byte/length.
    * @param {string} plainText an arbitary length plain text `string`.
    * @returns returns an arbitrary length [encoded base64] and [AES256
    * encrypted] `string`, that also contains the [base64 encoded] AES256-IV `string`
@@ -73,7 +73,7 @@ const Password = {
 
   /**
    * AES256 Cipher Text Decryption.
-   * @param {object} KEY `Buffer` object of 32 byte/length.
+   * @param {Buffer} KEY `Buffer` object of 32 byte/length.
    * @param {string} cipherText an arbitrary length [encoded base64] and [AES256
    * encrypted] `string`, that also contains the [base64 encoded] AES256-IV `string`
    * in the last 24 characters.

@@ -22,6 +22,8 @@
  * SOFTWARE.
 */
 
+require('dotenv').config();
+
 const Password = require('./crypto-scheme');
 
 // initialize database and it's tables
@@ -30,11 +32,7 @@ const { db } = require('./database');
 // initialize database statements
 const PrepStatement = new (require('./statements'))(db);
 
-require('dotenv').config();
-
-let SESSION_KEY = (process.env.SESSION_KEY) ? 
-  Buffer.from(process.env.SESSION_KEY) :
-  Buffer.from('just-a-random-dev-session-key===');
+let SESSION_KEY = Buffer.from(process.env.SESSION_KEY);
 
 const Handler = {
 

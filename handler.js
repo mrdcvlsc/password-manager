@@ -22,6 +22,8 @@
  * SOFTWARE.
 */
 
+require('dotenv').config();
+
 const Password = require('./crypto-scheme');
 
 // initialize database and it's tables
@@ -29,6 +31,8 @@ const { db } = require('./database');
 
 // initialize database statements
 const PrepStatement = new (require('./statements'))(db);
+
+let SESSION_KEY = Buffer.from(process.env.SESSION_KEY);
 
 const Handler = {
 
@@ -90,7 +94,8 @@ const Handler = {
       
       // record user session
       req.session.user = uid;
-      req.session.ukey = Password.GenKey(psw);
+      let ukey = Password.GenKey(psw).toString('base64');
+      req.session.ukey = Password.Encrypt(SESSION_KEY,ukey);
 
       // bring to view
       return res.redirect('/view');
@@ -104,17 +109,18 @@ const Handler = {
   ViewRecords: async function(req,res) {
     if(req.session.user) {
       let uid = req.session.user;
+      let ukeyBuffer = Buffer.from(Password.Decrypt(SESSION_KEY,req.session.ukey),'base64');
 
       // get records for specific user
       let result = [];
       for(let row of PrepStatement.ReadRecord.iterate(uid)) {
-        row.password = Password.Decrypt(req.session.ukey,row.password);
+        row.password = Password.Decrypt(ukeyBuffer,row.password);
         result.push(row);
       }
 
       return result;
     } else {
-      return 403;
+      return res.code(403).redirect('/login');
     }
   },
 
@@ -143,7 +149,8 @@ const Handler = {
       }
 
       // add record
-      let EncryptedPassword = Password.Encrypt(req.session.ukey,pass1);
+      let ukeyBuffer = Buffer.from(Password.Decrypt(SESSION_KEY,req.session.ukey),'base64');
+      let EncryptedPassword = Password.Encrypt(ukeyBuffer,pass1);
       PrepStatement.AddRecord.run(uid,username,platform,EncryptedPassword);
 
       // bring to view

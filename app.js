@@ -22,6 +22,12 @@
  * SOFTWARE.
 */
 
+require('dotenv').config();
+
+console.log('SESSION_SECRET:', process.env.SESSION_SECRET);
+console.log('SESSION_KEY   :', process.env.SESSION_KEY);
+console.log('SQLITE_DB     :', process.env.SQLITE_DB);
+
 const MODE = process.argv[2];
 
 let CookieSecureMode;
@@ -56,20 +62,29 @@ const fastify = require('fastify')({logger:FastifyLoggerMode});
 const fastifyStatic = require('@fastify/static');
 const fastifyCookie = require('@fastify/cookie');
 const fastifySession = require('@fastify/session');
-const fastifyHelmet = require('@fastify/helmet')
+const fastifyHelmet = require('@fastify/helmet');
 
-const crypto = require('crypto');
 const path = require('path');
 const os = require('os');
 const networkInterfaces = os.networkInterfaces();
 
+const betterSqlite3Store = require('./better-sqlite3-session-store');
+const sqlite3db = require('better-sqlite3')(`./${process.env.SQLITE_DB}`);
+
 const PORT = process.env.PORT || 8080;
 
-/// Secure Random String Generator
-function srstrg(length) {
-  let buffer = crypto.randomBytes(length);
-  return buffer.toString('hex');
-}
+// register cookies and sessions plugin
+fastify.register(fastifyCookie);
+fastify.register(fastifySession,{
+  secret: process.env.SESSION_SECRET,
+  cookie: {
+    secure: CookieSecureMode,
+    httpOnly: true,
+    maxAge: 3600000, // 1 hour session lifetime
+  },
+  saveUninitialized: false,
+  store: new betterSqlite3Store(sqlite3db)
+});
 
 // register helmet protection
 fastify.register(fastifyHelmet, { global : true } );
@@ -77,18 +92,6 @@ fastify.register(fastifyHelmet, { global : true } );
 // serve static front-end resources
 fastify.register(fastifyStatic.default, {
   root: path.join(__dirname, 'public')
-});
-
-// register cookies and sessions plugin
-fastify.register(fastifyCookie);
-fastify.register(fastifySession,{
-  secret: srstrg(16),
-  cookie: {
-    secure: CookieSecureMode,
-    httpOnly: true,
-    maxAge: 3600000 // 1 hour session lifetime
-  },
-  saveUninitialized: false
 });
 
 // accept form body submission

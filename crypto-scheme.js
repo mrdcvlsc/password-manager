@@ -29,6 +29,13 @@ const SALT_ROUNDS = 10;
 
 const Password = {
 
+  /**
+   * Bcrypt password hash.
+   * @param {string} userPassword raw `string` password of the user.
+   * @returns `{salt,hash}` - type `object{string,string}`.
+   * @returns `salt` randomly generated salt `string` with 29 characters.
+   * @returns `hash` output of the bcrypt hash, a `string` with 60 characters.
+   */
   Hash : async function(userPassword) {
     let salt = await bcrypt.genSalt(SALT_ROUNDS);
     let hash = await bcrypt.hash(userPassword,salt);
@@ -39,26 +46,52 @@ const Password = {
     return await bcrypt.compare(password,hash);
   },
 
+  /**
+   * Key derivation function for `AES256-GCM`.
+   * @param {string} userPassword raw `string` password of the user.
+   * @returns `Buffer` object of 32 byte/length.
+   */
   GenKey : function(userPassword) {
     return crypto.createHash('sha256').update(userPassword).digest();
   },
 
+  /**
+   * AES256 Plain Text Encryption.
+   * @param {object} KEY `Buffer` object of 32 byte/length.
+   * @param {string} plainText an arbitary length plain text `string`.
+   * @returns returns an arbitrary length [encoded base64] and [AES256
+   * encrypted] `string`, that also contains the [base64 encoded] AES256-IV `string`
+   * in the last 24 characters.
+   */
   Encrypt : function(KEY, plainText) {
     let IV  = crypto.randomBytes(16);
-
     let cipher = crypto.createCipheriv('aes-256-gcm',KEY,IV);
     let cipherText = cipher.update(plainText);
     cipher.final();
-
     return cipherText.toString('base64') + IV.toString('base64');
   },
 
+  /**
+   * AES256 Cipher Text Decryption.
+   * @param {object} KEY `Buffer` object of 32 byte/length.
+   * @param {string} cipherText an arbitrary length [encoded base64] and [AES256
+   * encrypted] `string`, that also contains the [base64 encoded] AES256-IV `string`
+   * in the last 24 characters.
+   * @returns returns an arbitrary length decrypted plain text `string`.
+   */
   Decrypt : function(KEY, cipherText) {
     let IV  = Buffer.from(cipherText.substring(cipherText.length - 24),'base64');
-
     cipherText = cipherText.substring(0,cipherText.length-24);
     let decipher = crypto.createDecipheriv('aes-256-gcm',KEY,IV);
     return decipher.update(cipherText,'base64').toString();
+  },
+
+  /**
+   * Generate an AES256 random initial vector (IV).
+   * @returns `Buffer` object of 16 byte/length.
+   */
+  GenAesIV : function() {
+    return crypto.randomBytes(16);
   }
 };
 

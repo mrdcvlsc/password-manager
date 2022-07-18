@@ -1,5 +1,7 @@
 # password-manager
 
+This branch uses **main memory** (RAM) as it's `session store`.
+
 ![build](https://github.com/mrdcvlsc/password-manager/actions/workflows/build.yml/badge.svg)
 ![tests](https://github.com/mrdcvlsc/password-manager/actions/workflows/tests.yml/badge.svg)
 

@@ -33,7 +33,7 @@ async function routes (fastify) {
 
     fastify.addHook('preValidation', async function(req,res) {
       if(req.session.user) {
-        return res.sendFile('html/password-view.html');
+        return res.redirect('/view');
       }
     });
 

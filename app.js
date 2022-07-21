@@ -68,7 +68,7 @@ const path = require('path');
 const os = require('os');
 const networkInterfaces = os.networkInterfaces();
 
-const betterSqlite3Store = require('./better-sqlite3-session-store');
+const betterSqlite3Store = require('fastify-session-better-sqlite3-store');
 const sqlite3db = require('better-sqlite3')(`./${process.env.SQLITE_DB}`);
 
 const PORT = process.env.PORT || 8080;

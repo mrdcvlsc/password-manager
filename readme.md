@@ -5,7 +5,7 @@ This branch uses **better-sqlite3** as it's `session store`.
 ![build](https://github.com/mrdcvlsc/password-manager/actions/workflows/build.yml/badge.svg)
 ![tests](https://github.com/mrdcvlsc/password-manager/actions/workflows/tests.yml/badge.svg)
 
-A simple web application for managing and storing password, the **frontend** was created using vanila ***html***, ***css***, and ***javascript***, it supports mobile and desktop view, the **backend** uses ***nodejs*** and ***fastify*** web framework, and for the **database**, sqlite3 is use with the help of ***better-sqlite3***.
+A simple web application for managing and storing password, the **frontend** was created using vanilla ***html***, ***css***, and ***javascript***, it supports mobile and desktop view, the **backend** uses ***nodejs*** and ***fastify*** web framework, and for the **database**, sqlite3 is use with the help of ***better-sqlite3***.
 
 > **Warning**
 

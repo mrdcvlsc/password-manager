@@ -18,18 +18,18 @@
   },
   "homepage": "https://github.com/mrdcvlsc/password-manager#readme",
   "dependencies": {
-    "@fastify/cookie": "^7.0.0",
-    "@fastify/formbody": "^7.0.1",
-    "@fastify/helmet": "^9.1.0",
-    "@fastify/session": "^9.0.0",
-    "@fastify/static": "^6.4.0",
-    "bcrypt": "^5.0.1",
-    "better-sqlite3": "^7.5.3",
-    "dotenv": "^16.0.1",
-    "fastify": "^4.1.0",
+    "@fastify/cookie": "^8.3.0",
+    "@fastify/formbody": "^7.4.0",
+    "@fastify/helmet": "^10.1.0",
+    "@fastify/session": "^10.1.1",
+    "@fastify/static": "^6.9.0",
+    "bcrypt": "^5.1.0",
+    "better-sqlite3": "^8.1.0",
+    "dotenv": "^16.0.3",
+    "fastify": "^4.13.0",
     "fastify-session-better-sqlite3-store": "^1.0.9"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.20"
   }
 }

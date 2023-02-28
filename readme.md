@@ -15,13 +15,7 @@ A simple web application for managing and storing password, the **frontend** was
 
 **Demo**
 
-Here is a demo of the web-app deployed in heroku. **[See Demo](https://password-manager-demo-app.herokuapp.com/)**.
-
 ![web-app-demo-gif](public/image/password-manager-demo-video.gif)
-
-https://password-manager-demo-app.herokuapp.com/
-
-All of the data saved in this demo web-app will be deleted after some time, It is not permanent.
 
 -----
 

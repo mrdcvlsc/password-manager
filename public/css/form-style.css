@@ -22,7 +22,7 @@ body{
   background-image: linear-gradient(200deg,#ffef12, rgb(230, 0, 69) 30%, #002fff);
 }
 
-h1{
+h1, h5, h6 {
   color: white;
   font-weight: bold ;
 }

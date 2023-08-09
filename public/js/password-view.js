@@ -171,8 +171,8 @@ document.querySelector('.remove-record').addEventListener('click',function(){
   }
 });
 
-// cancle remove - hide selection, unselect selections
-document.querySelector('.cancle-delete').addEventListener('click',function(){
+// cancel remove - hide selection, unselect selections
+document.querySelector('.cancel-delete').addEventListener('click',function(){
 
   SearchBar.style.display = 'inline';
 
@@ -198,7 +198,7 @@ document.querySelector('.add-record').addEventListener('click', function(){
 });
 
 // add window close button
-document.querySelector('.add-cancle').addEventListener('click', function(){
+document.querySelector('.add-cancel').addEventListener('click', function(){
   AddWall.style.display = 'none';
 });
 

@@ -25,6 +25,6 @@
 
 .user-menu-exit {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0.75em;
+    right: 0.75em;
 }

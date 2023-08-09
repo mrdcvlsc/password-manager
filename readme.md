@@ -15,6 +15,8 @@ A simple web application for managing and storing password, the **frontend** was
 
 **Demo**
 
+[**Live App Demo**](https://password-manager-demo.onrender.com/) : https://password-manager-demo.onrender.com/
+
 ![web-app-demo-gif](public/image/password-manager-demo-video.gif)
 
 -----

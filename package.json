@@ -27,7 +27,7 @@
     "better-sqlite3": "^8.5.0",
     "dotenv": "^16.3.1",
     "fastify": "^4.21.0",
-    "fastify-session-better-sqlite3-store": "^1.0.9"
+    "fastify-session-better-sqlite3-store": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
